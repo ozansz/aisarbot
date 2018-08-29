@@ -16,6 +16,7 @@ class User(BaseModel):
     username = pw.CharField(null=True)
     is_bot = pw.BooleanField(null=True)
     gender = pw.CharField(null=True)
+    age = pw.IntegerField(null=True)
     location = pw.CharField(null=True)
     int_gender = pw.CharField(null=True)
     int_age = pw.IntegerField(null=True)
