@@ -54,7 +54,25 @@ def age(bot, update):
             "You can not join our full-of-chick community boss :(")
         return ConversationHandler.END
 
-    update.message.reply_text("END OF DEMO.")
+    update.message.reply_text("Gorgeous! Now, send me your location please, "
+                              "or send /skip if you don\'t want to.")
+
+    return LOCATION
+
+def location(bot, update):
+    user = update.message.from_user
+    user_location = update.message.location
+
+    update_user(int(user.id), location="{0},{1}".format(
+        user_location.latitude, user_location.longitude))
+
+    update.message.reply_text("END OF THE DEMO.")
+    ConversationHandler.END
+
+def skip_location(bot, update):
+    update.message.reply_text("Oh, I'm sorry. I need your location to find hot "
+                              "chicks near you. So now I have to give your "
+                              "chicks to someone else. Bye loser!")
     return ConversationHandler.END
 
 def cancel(bot, update):
