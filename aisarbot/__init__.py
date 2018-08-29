@@ -1,8 +1,15 @@
 import logging
 
+from aisarbot import settings
+
+log_level = logging.INFO
+
+if settings.DEBUG:
+    log_level = logging.DEBUG
+
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.INFO
+    level=log_level
 )
 
 logger = logging.getLogger("aisarb20t")

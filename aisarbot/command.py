@@ -2,6 +2,7 @@ from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import ConversationHandler
 
 from aisarbot import logger
+from aisarbot.db import update_user, create_user_if_not_exists
 
 GENDER, AGE, LOCATION, INT_GENDER, INT_AGE, INT_RADIUS = range(6)
 
@@ -16,6 +17,10 @@ def start(bot, update):
     logger.info("{0} (@{1}) has joined the game!".format(
         user.first_name, user.username))
 
+    create_user_if_not_exists(int(user.id))
+    update_user(int(user.id), first_name=user.first_name,
+        last_name=user.last_name, username=user.username, is_bot=user.is_bot)
+
     reply_keyboard = [['Male', 'Female', 'Other']]
 
     update.message.reply_text(
@@ -29,14 +34,20 @@ def start(bot, update):
     return GENDER
 
 def gender(bot, update):
+    user = update.message.from_user
     gender = update.message.text
+
+    update_user(int(user.id), gender=gender)
 
     update.message.reply_text(gender_responds[gender])
 
     return AGE
 
 def age(bot, update):
+    user = update.message.from_user
     age = int(update.message.text)
+
+    update_user(int(user.id), age=age)
 
     if age < 18:
         update.message.reply_text(
