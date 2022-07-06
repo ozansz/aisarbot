@@ -1,4 +1,4 @@
-lxml==4.2.4
+lxml==4.9.1
 python-telegram-bot==10.1.0
 requests==2.19.1
 urllib3==1.23
